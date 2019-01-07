@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>jquery</title>
+		<meta charset="utf-8" />
+		<script type="text/javascript" src="/externlib/jquery/jquery.js"></script> 
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+	</head>
+	<body>
+		<h1>구구단-jquery</h1>
+		<select id="rowValue" >
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+		</select>	
+		<br>
+		<script type="text/javascript">
+			$("#rowValue").on("change", function(){
+				$("table").remove();
+				var html = "<table border=\"1\">";
+				var select = $("#rowValue").val();
+				var row = parseInt(select);
+				for (var a = 2; a < 10; a += row) {	
+					var end = Math.min(a + row , 10);
+					html = makeTable(html, a, end);
+				}
+				$("body").append(html);
+			});
+				
+            function makeTable(html, start, end) {
+				html += '<tr>';
+                for (var i = start ; i < end;++i) {
+					var text = i + "단";
+					html += '<th>'+text+'</th>';
+                }
+				html += '</tr>';
+				for(var i = 1; i < 10; ++i) {
+					html += '<tr>';
+					for(var j = start; j < end; ++j) {
+						text = j + "X" + i + "=" + j * i;
+						html += '<td>'+text+'</td>';
+					}
+				}
+				return html;
+            }
+		</script>
+	</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>DOM</title>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<h1>구구단-DOM</h1>
+		<select id="rowValue" onchange="valueChange();">
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+		</select>	
+		<br>
+		<script type="text/javascript">
+			var doc = window.document;
+			var body = doc.getElementsByTagName("body")[0];			
+			var table = null;
+			
+			function valueChange() {
+				if (table) {
+					body.removeChild(table);
+				}				
+				var select = doc.getElementById("rowValue").value;
+				var row = parseInt(select);
+				
+				table = doc.createElement("table");
+				table.border = 1;
+								
+				for (var a = 2; a < 10; a += row) {	
+					var end = Math.min(a + row , 10);
+					makeTable(doc, table, a, end);
+				}			
+				body.appendChild(table);   
+			}
+				
+            function makeTable(doc, table, start, end) {
+				var head = doc.createElement("tr")
+                for (var i = start ; i < end; i ++ ) {
+					var th = doc.createElement("th");
+					var text = doc.createTextNode( i + "단");
+                    th.appendChild(text);
+                    head.appendChild(th);
+                }
+				table.appendChild(head);
+				for(var i = 1; i < 10; i++) {
+					var body = doc.createElement("tr");
+					table.appendChild(body)
+					for(var j = start; j < end; j++) {
+						var td = doc.createElement("td");
+						var text = doc.createTextNode(j + "X" + i + "=" + j * i);
+						td.appendChild(text);
+						body.appendChild(td);
+					}
+				}
+            }
+		</script>
+	</body>
+</html>
