@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>combobox_event</title>
+		<meta charset="utf-8" />
+		<!-- <script type="text/javascript" src="externlib/jquery/jquery.js"></script> --> 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+	</head>
+	<body>
+		<h1>combobox_event</h1>
+		<select id="selectRow" >
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+			<option value="10">10</option>
+		</select> X
+		<select id="selectCol" >
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+		</select>	
+		<br>
+		<table border="1" id='table'></table>
+
+		<script type="text/javascript">
+			var cols = '';
+			var rows = '';
+			$("select[id^=select]").on("change",function(){
+				cols = parseInt($("#selectCol").val());
+				rows = parseInt($("#selectRow").val());	
+				$("#table").empty();
+				makeTable(rows, cols);
+			});			
+			$("#table").on("change","select",function(){
+				var _this = $(this);
+				var inputVal = _this.val();
+				var tr = _this.parent().parent();
+				var td = tr.children();
+				var rowIndex = this.parentNode.parentNode.rowIndex;
+				var colIndex = this.parentNode.cellIndex;
+
+ 				for (var i = colIndex + 1; i< $(td).length; i++) {
+					var html = '';
+					var ol = '';
+					var selectTD = $('#table tr:eq(' + rowIndex + ') td:eq(' + i + ')');
+					(i == colIndex) ? selectVal = inputVal : selectVal = $('#table tr:eq(' + rowIndex + ') td:eq(' + (i - 1) + ')').find("select").val();
+					for(var j = 1; j < 6; ++j) { 
+						ol = selectVal + "." + j;
+						html += '<option>'+ ol +'</option>';
+					}
+					selectTD.find("select").empty();
+					selectTD.find("select").append(html);
+//					selectTD.find("select").change();
+				}
+ 
+			
+			});
+			
+			function makeTable(rows, cols) {
+				var html = '';
+				for(var i = 0; i < rows; ++i) {
+					html += '<tr>';					
+					for(var j = 0; j < cols; ++j) {
+						html += '<td>';
+						html += makeSelectBox(i,j);
+						html += '</td>';
+					}
+					html += '</tr>';
+				}
+				$("#table").append(html);
+			}
+			function makeSelectBox(row, col) {
+				var selectHtml = '<select id="'+row+'">';
+				if(col==0) {
+					for(var i = 1;i < 6; ++i) {
+						selectHtml += "<option>"+i+"</option>";
+					}
+				}
+				selectHtml += '</select>';
+				return selectHtml;
+			}
+		</script>
+	</body>
+</html>
