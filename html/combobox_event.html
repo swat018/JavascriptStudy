@@ -32,58 +32,60 @@
 		<script type="text/javascript">
 			var cols = '';
 			var rows = '';
-			$("select[id^=select]").on("change",function(){
+
+			$("select[id^=select]").on("change",function() {
 				cols = parseInt($("#selectCol").val());
 				rows = parseInt($("#selectRow").val());	
 				$("#table").empty();
 				makeTable(rows, cols);
 			});			
-			$("#table").on("change","select",function(){
+			$("#table").on("change","select",function() {
 				var _this = $(this);
 				var inputVal = _this.val();
-				var tr = _this.parent().parent();
-				var td = tr.children();
-				var rowIndex = this.parentNode.parentNode.rowIndex;
-				var colIndex = this.parentNode.cellIndex;
+				var rowIndex = _this.parent().parent().index();
+				var colIndex = _this.parent().index() + 1;
+				var selectVal = inputVal;
+				var selectTD = $('#table tr:eq(' + rowIndex + ') td:eq(' + colIndex + ')').find('select');
+				var html = '';
 
- 				for (var i = colIndex + 1; i< $(td).length; i++) {
-					var html = '';
-					var ol = '';
-					var selectTD = $('#table tr:eq(' + rowIndex + ') td:eq(' + i + ')');
-					(i == colIndex) ? selectVal = inputVal : selectVal = $('#table tr:eq(' + rowIndex + ') td:eq(' + (i - 1) + ')').find("select").val();
-					for(var j = 1; j < 6; ++j) { 
-						ol = selectVal + "." + j;
-						html += '<option>'+ ol +'</option>';
-					}
-					selectTD.find("select").empty();
-					selectTD.find("select").append(html);
-//					selectTD.find("select").change();
-				}
- 
-			
+				html += makeSelectBox(selectVal, colIndex);
+
+				selectVal = selectVal + '.1';
+				colIndex++;
+				selectTD.empty().append(html);
+				selectTD.change();			
 			});
 			
 			function makeTable(rows, cols) {
 				var html = '';
 				for(var i = 0; i < rows; ++i) {
-					html += '<tr>';					
+					html += '<tr>';
+					var selectVal = "1";
 					for(var j = 0; j < cols; ++j) {
 						html += '<td>';
-						html += makeSelectBox(i,j);
+						html += '<select id="' + i + j + '">';
+						html += makeSelectBox(selectVal, j);
+						html += '</select>';
 						html += '</td>';
+						selectVal = (j == 0) ? '1' : selectVal + '.1';
 					}
+
 					html += '</tr>';
 				}
 				$("#table").append(html);
 			}
-			function makeSelectBox(row, col) {
-				var selectHtml = '<select id="'+row+'">';
-				if(col==0) {
-					for(var i = 1;i < 6; ++i) {
-						selectHtml += "<option>"+i+"</option>";
+
+			function makeSelectBox(selectVal, col) {
+				var ol = '';
+				var selectHtml = '';
+				for (var i = 1; i < 6; ++i) {
+					if (col == 0) {
+						ol = i;
+					} else {
+						ol = selectVal + "." + i;
 					}
+					selectHtml += '<option value =' + ol + '>' + ol + '</option>';
 				}
-				selectHtml += '</select>';
 				return selectHtml;
 			}
 		</script>
