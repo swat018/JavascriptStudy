@@ -15,7 +15,7 @@
 			<option value="4">4</option>
 			<option value="5">5</option>
 			<option value="6">6</option>
-			<option value="7">7</option>
+			<optiodn value="7">7</optiodn>
 			<option value="8">8</option>
 			<option value="9">9</option>
 			<option value="10">10</option>
@@ -44,13 +44,11 @@
 				var inputVal = _this.val();
 				var rowIndex = _this.parent().parent().index();
 				var colIndex = _this.parent().index() + 1;
-				var selectVal = inputVal;
+				var selectVal = inputVal + '.';
 				var selectTD = $('#table tr:eq(' + rowIndex + ') td:eq(' + colIndex + ')').find('select');
 				var html = '';
 
 				html += makeSelectBox(selectVal, colIndex);
-
-				selectVal = selectVal + '.1';
 				colIndex++;
 				selectTD.empty().append(html);
 				selectTD.change();			
@@ -60,14 +58,14 @@
 				var html = '';
 				for(var i = 0; i < rows; ++i) {
 					html += '<tr>';
-					var selectVal = "1";
+					var selectVal ='';
 					for(var j = 0; j < cols; ++j) {
 						html += '<td>';
-						html += '<select id="' + i + j + '">';
+						html += '<select name = "col' + j + '">';
 						html += makeSelectBox(selectVal, j);
 						html += '</select>';
 						html += '</td>';
-						selectVal = (j == 0) ? '1' : selectVal + '.1';
+						selectVal = selectVal + "1.";
 					}
 
 					html += '</tr>';
@@ -79,11 +77,7 @@
 				var ol = '';
 				var selectHtml = '';
 				for (var i = 1; i < 6; ++i) {
-					if (col == 0) {
-						ol = i;
-					} else {
-						ol = selectVal + "." + i;
-					}
+					ol = selectVal + i;
 					selectHtml += '<option value =' + ol + '>' + ol + '</option>';
 				}
 				return selectHtml;
