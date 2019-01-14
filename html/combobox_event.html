@@ -48,7 +48,7 @@
 				var selectTD = $('#table tr:eq(' + rowIndex + ') td:eq(' + colIndex + ')').find('select');
 				var html = '';
 
-				html += makeSelectBox(selectVal, colIndex);
+				html += makeSelectBox(selectVal);
 				colIndex++;
 				selectTD.empty().append(html);
 				selectTD.change();			
@@ -62,7 +62,7 @@
 					for(var j = 0; j < cols; ++j) {
 						html += '<td>';
 						html += '<select name = "col' + j + '">';
-						html += makeSelectBox(selectVal, j);
+						html += makeSelectBox(selectVal);
 						html += '</select>';
 						html += '</td>';
 						selectVal = selectVal + "1.";
@@ -73,7 +73,7 @@
 				$("#table").append(html);
 			}
 
-			function makeSelectBox(selectVal, col) {
+			function makeSelectBox(selectVal) {
 				var ol = '';
 				var selectHtml = '';
 				for (var i = 1; i < 6; ++i) {
