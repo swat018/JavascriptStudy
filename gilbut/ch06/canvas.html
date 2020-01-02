@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Canvas의 기본</title>
+    <script src="./strokeRoundedRect.js"></script>
+    <script>
+        window.onload = function() {
+            // canvas 요소 가져오기
+            var canvas = document.getElementById("mycanvas");
+            // canvas 렌더링 컨텍스트 가져오기
+            var ctx = canvas.getContext("2d");
+            // 그리기
+            // 좌표 (50, 60)에 너비가 200이고 높이가 100인 사각형 테두리 그리기
+            //ctx.strokRext(50,60,200,100);
+            // 사각형 그리기
+            // ctx.strokeRect(10, 10, 200, 150);
+            // ctx.fillRect(50,40,120,90);
+            // ctx.clearRect(90,65,40,40);
+            // 패스로 그리기
+            // ctx.beginPath();
+            // ctx.moveTo(60,10);
+            // ctx.lineTo(110,100);
+            // ctx.lineTo(10,100);
+            // ctx.closePath();
+            // ctx.stroke();
+            // 삼각형 채우기
+            // ctx.beginPath();
+            // ctx.moveTo(60,120);
+            // ctx.lineTo(110,210);
+            // ctx.lineTo(10,210);
+            // ctx.fill();
+            // 펜 이동시키기(moveTo), 선으로 연결하기(lineTo)
+            // ctx.beginPath();
+            // ctx.moveTo(100,50);
+            // ctx.lineTo(100,150);
+            // ctx.moveTo(50,100);
+            // ctx.lineTo(150,100);
+            // ctx.stroke();
+            // 원호그리기 (arc)
+            // ctx.beginPath();
+            // // 시계 방향
+            // ctx.arc(100,100,80,30 * Math.PI/180, 120 * Math.PI/180, false);
+            // // ctx.stroke();
+            // ctx.fill();
+            // // 시계 반대 방향
+            // ctx.beginPath();
+            // ctx.arc(100,100,80,30 * Math.PI/180,120 * Math.PI/180, true);
+            // // ctx.stroke();
+            // ctx.fill();
+            // 둥근 모서리 그리기
+            // ctx.beginPath();
+            // ctx.moveTo(10,10);
+            // ctx.lineTo(200,10);
+            // ctx.arc(200,60,50, -Math.PI/2, 0, false);
+            // ctx.lineTo(250,160);
+            // ctx.stroke();
+            // 모서리가 둥근 사각형 그리기
+            // strokeRoundedRect(ctx,10,10,100,80,10);
+            // strokeRoundedRect(ctx,150,10,100,80,30);
+            // 색상 설정 (strokeStyle, fillStyle)
+            // ctx.lineWidth = 10;
+            // ctx.strokeStyle = "red";
+            // ctx.fillStyle = "blue";
+            // ctx.strokeRect(10,10,100,80);
+            // ctx.fillRect(150,10,100,80);
+            // 선의 두께 설정
+            ctx.lienWidth = 2;
+            ctx.strokeRect(10,10,100,80);
+            ctx.lineWidth = 10;
+            ctx.strokeRect(150,10,100,80);
+        }
+    </script>
+</head>
+<body>
+    <canvas id="mycanvas" width="640" height="400"></canvas>
+</body>
+</html>
